@@ -5,6 +5,11 @@ const inquirer = require("inquirer");
 const electron = require("electron-html-to");
 const generateHTML = require("./generateHTML.js");
 
+let conversion = electron({
+    converterPath: electron.converters.PDF
+  });
+  console.log()
+
 // prompt for username and color
 function promptUser() {
     return inquirer.prompt([
@@ -29,46 +34,42 @@ function promptUser() {
 
 
 // call prompt user function with axios promise
-promptUser().then(function({username}) {
+promptUser().then(function({username,color}) {
     // connect to github api
     const queryUrl = `https://api.github.com/users/${username}`;
+    // get user color
+    const colorChoice = color;
+    //console.log(colorChoice);
 
     axios.get(queryUrl).then(function(res) {
-        // intake color from user input
-        //console.log(res.data.color.choices);
-
-        // traverse github object
-        // console.log(res.data.avatar_url);
-        // console.log(res.data.login);
-        // console.log(res.data.location);
-        // console.log(res.data.url)
-        // console.log(res.data.blog);
-        // console.log(res.data.bio);
-        // console.log(res.data.public_repos);
-        // console.log(res.data.followers);
-        // console.log(res.data.starred_url);
-        // console.log(res.data.following);
 
         // create html
-        let html = generateHTML(res.data);
-        //writeToFile();
-        console.log(html);
+        let html = generateHTML(res.data,colorChoice);
+        writeToFile(html);
         
         // generate pdf
-
-        // 
+        //electron.createWriteStream('./test.pdf');
     });
 });
 
 
-// function writeToFile(generateHTML, data) {
-//     fs.writeFile('index.html', data, function(err) {
-//         if (err) {
-//             return console.log(err);
-//         }
-//         console.log("success!");
-//     });
-// }
+function writeToFile(data) {
+    fs.writeFile('index.html', data, function(err) {
+        if (err) {
+            return console.log(err);
+        }
+        console.log("success!");
+    });
+}
+
+conversion({ html: 'generateHTML' }, function(err, result) {
+    if (err) {
+      return console.error(err);
+    }
+
+    result.stream.pipe(electron.createWriteStream('./test.pdf'));
+    conversion.kill(); // necessary if you use the electron-server strategy, see bellow for details
+  });
 
 // function init() {
 //     console.log('init function');

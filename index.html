@@ -1,32 +1,4 @@
-const colors = {
-  green: {
-    wrapperBackground: "#E6E1C3",
-    headerBackground: "#C1C72C",
-    headerColor: "black",
-    photoBorderColor: "#black"
-  },
-  blue: {
-    wrapperBackground: "#5F64D3",
-    headerBackground: "#26175A",
-    headerColor: "white",
-    photoBorderColor: "#73448C"
-  },
-  pink: {
-    wrapperBackground: "#879CDF",
-    headerBackground: "#FF8374",
-    headerColor: "white",
-    photoBorderColor: "#FEE24C"
-  },
-  red: {
-    wrapperBackground: "#DE9967",
-    headerBackground: "#870603",
-    headerColor: "white",
-    photoBorderColor: "white"
-  }
-};
-
-function generateHTML(data,colorChoice) {
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="UTF-8" />
@@ -52,7 +24,7 @@ function generateHTML(data,colorChoice) {
          height: 100%;
          }
          .wrapper {
-         background-color: ${colors[colorChoice].wrapperBackground};
+         background-color: #E6E1C3;
          padding-top: 100px;
          overflow: auto;
          }
@@ -104,8 +76,8 @@ function generateHTML(data,colorChoice) {
          display: flex;
          justify-content: center;
          flex-wrap: wrap;
-         background-color: ${colors[colorChoice].headerBackground};
-         color: ${colors[colorChoice].headerColor};
+         background-color: #C1C72C;
+         color: black;
          padding: 10px;
          width: 95%;
          border-radius: 6px;
@@ -116,7 +88,7 @@ function generateHTML(data,colorChoice) {
          border-radius: 50%;
          object-fit: cover;
          margin-top: -75px;
-         border: 6px solid ${colors[colorChoice].photoBorderColor};
+         border: 6px solid #black;
          box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
          }
          .photo-header h1, .photo-header h2 {
@@ -159,8 +131,8 @@ function generateHTML(data,colorChoice) {
          .card {
            padding: 20px;
            border-radius: 6px;
-           background-color: ${colors[colorChoice].headerBackground};
-           color: ${colors[colorChoice].headerColor};
+           background-color: #C1C72C;
+           color: black;
            margin: 20px;
            width: calc(50% - 40px);
            box-sizing: border-box;
@@ -189,23 +161,21 @@ function generateHTML(data,colorChoice) {
       <body>
       <div class="wrapper">
         <div class="photo-header">
-          <img src="${data.avatar_url}">
-          <h1>${data.name}</h1>
-          <h3>${data.login}</h3>
-          <h5>${data.location}</h5>
-          <a href="${data.html_url}"><i class="fab fa-github"></i></a>
-          <a href="${data.blog}"><i class="fas fa-rss"></i></a>
+          <img src="https://avatars1.githubusercontent.com/u/56709102?v=4">
+          <h1>Jenna Miles</h1>
+          <h3>jennanmiles</h3>
+          <h5>Tucson, AZ</h5>
+          <a href="https://github.com/jennanmiles"><i class="fab fa-github"></i></a>
+          <a href="https://jennanmiles.github.io/"><i class="fas fa-rss"></i></a>
         </div> 
         <div class="row">
-          <h4>${data.bio}</h4>
+          <h4>Designer turned front-end web developer. Wanna-be full-stack. WordPress coder. Book Worm.</h4>
         </div>
         <div class="row">  
-          <div class="card">Public Repos: ${data.public_repos}</div>   
-          <div class="card"> Followers: ${data.followers}</div>
-          <div class="card"> GitHub Stars: ${data.starred_url}</div>
-          <div class="card"> Following: ${data.following}</div> 
+          <div class="card">Public Repos: 8</div>   
+          <div class="card"> Followers: 10</div>
+          <div class="card"> GitHub Stars: https://api.github.com/users/jennanmiles/starred{/owner}{/repo}</div>
+          <div class="card"> Following: 9</div> 
         </div>
       </div>        
-      </body>`
-        }
-        module.exports = generateHTML;
+      </body>
