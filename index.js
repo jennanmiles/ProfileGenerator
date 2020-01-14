@@ -46,7 +46,7 @@ promptUser().then(function({username,color}) {
 
         axios.get(queryUrlStar).then(function(resStar) {
             res.data.starred_url = resStar.data.length;
-            console.log(resStar.data.length);
+            //console.log(resStar.data.length);
 
             // create html
             let html = generateHTML(res.data,colorChoice);
