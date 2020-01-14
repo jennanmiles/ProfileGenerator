@@ -46,41 +46,26 @@ promptUser().then(function({username,color}) {
         // create html
         let html = generateHTML(res.data,colorChoice);
         writeToFile(html);
+
+        function writeToFile(data) {
+            fs.writeFile('index.html', data, function(err) {
+                if (err) {
+                    return console.log(err);
+                }
+                console.log("success!");
+            });
+        }
         
-        // generate pdf
-        //electron.createWriteStream('./test.pdf');
+        conversion({ html: html }, function(err, result) {
+            if (err) {
+              return console.error(err);
+            }
+        
+            // generate pdf
+            result.stream.pipe(fs.createWriteStream('./test.pdf'));
+            conversion.kill(); // necessary if you use the electron-server strategy
+          });        
     });
 });
 
 
-function writeToFile(data) {
-    fs.writeFile('index.html', data, function(err) {
-        if (err) {
-            return console.log(err);
-        }
-        console.log("success!");
-    });
-}
-
-conversion({ html: 'generateHTML' }, function(err, result) {
-    if (err) {
-      return console.error(err);
-    }
-
-    result.stream.pipe(electron.createWriteStream('./test.pdf'));
-    conversion.kill(); // necessary if you use the electron-server strategy, see bellow for details
-  });
-
-// function init() {
-//     console.log('init function');
-//     try {
-//         const answers = await promptUser();
-//         const html = generateHTML(answers);
-//         writeToFile();
-//         console.log('success?')
-//     } catch(err) {
-//         console.log(err)
-//     }
-// }
-
-//init();
