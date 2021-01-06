@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "electron-html-to": "^2.6.0",
     "electron-prebuilt": "^1.4.13",
     "inquirer": "^7.0.3"
